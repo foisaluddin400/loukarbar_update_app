@@ -10,6 +10,7 @@ import { usePersist } from '../../hooks/usePersist';
 import { DateEntry } from '../../types';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Ionicons } from "@expo/vector-icons";
+import AlignedNav from '@/components/ui/AlignedNav';
 
 const SEED_DATES: DateEntry[] = [
   { 
@@ -86,6 +87,7 @@ export const DatesScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <AlignedNav></AlignedNav>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.inner}>
           <AppText variant="display" size={42} style={{ lineHeight: 42, marginBottom: 6 }}>
@@ -196,7 +198,7 @@ export const DatesScreen: React.FC = () => {
 
               {/* 05 HOW WE MEET */}
               <AppText
-                variant="smallCaps"
+                variant="mono"
                 color={Colors.ink2}
                 style={{ marginTop: 20, marginBottom: 10 }}
               >

@@ -5,6 +5,8 @@ import { AppText } from '../../components/ui/AppText';
 import { Tag } from '../../components/ui/Tag';
 import { usePersist } from '../../hooks/usePersist';
 import { PlayHistoryEntry } from '../../types';
+import { VibeTabs } from '@/navigation/VibeTabs';
+import SamVibeNav from '@/components/ui/SamVibeNav';
 
 const SEED: PlayHistoryEntry[] = [
   { card: { a: 'Beach', b: 'Mountains', cat: 'Travel' }, myPick: 'a', theirPick: 'a', date: 'Yesterday' },
@@ -24,6 +26,7 @@ export const HistoryScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <SamVibeNav></SamVibeNav>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.inner}>
           <AppText variant="display" size={42} style={{ lineHeight: 42, marginBottom: 6 }}>

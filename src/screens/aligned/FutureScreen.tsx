@@ -8,6 +8,7 @@ import { BottomSheet } from '../../components/ui/BottomSheet';
 import { MilestoneRow } from '../../components/future/MilestoneRow';
 import { usePersist } from '../../hooks/usePersist';
 import { Milestone } from '../../types';
+import AlignedNav from '@/components/ui/AlignedNav';
 
 const SEED_MILESTONES: Milestone[] = [
   {
@@ -115,6 +116,7 @@ export const FutureScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <AlignedNav></AlignedNav>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.inner}>
           <AppText variant="display" size={42} style={{ lineHeight: 42, marginBottom: 6 }}>

@@ -1,7 +1,7 @@
 export const Colors = {
   ink: '#1A1614',
   ink2: '#2E2722',
-  bone: '#F4EEE4',
+  bone: '#EFE7DD',
   cream: '#EAE2D4',
   cream2: '#DED3BF',
   rule: '#C9BDA5',

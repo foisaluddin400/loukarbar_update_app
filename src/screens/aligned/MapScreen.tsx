@@ -9,6 +9,7 @@ import { PinCard } from '../../components/map/PinCard';
 import { usePersist } from '../../hooks/usePersist';
 import { MapPin, PinType } from '../../types';
 import { AppTextInput } from '@/components/ui/AppTextInput';
+import AlignedNav from '@/components/ui/AlignedNav';
 
 const SEED_PINS: MapPin[] = [
   { id: 1, city: 'Los Angeles', country: 'USA', lat: 34, lng: -118, type: 'home', owner: 'lou', note: 'Sunsets and Griffith hikes.' },
@@ -61,6 +62,7 @@ const meetOptions = [
 
   return (
     <SafeAreaView style={styles.safe}>
+      <AlignedNav></AlignedNav>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.inner}>
           <AppText variant="display" size={42} style={{ lineHeight: 42, marginBottom: 6 }}>

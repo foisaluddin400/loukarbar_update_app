@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-  View, ScrollView, StyleSheet, Pressable, SafeAreaView,
-} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { Colors } from '../constants/colors';
-import { AppText } from '../components/ui/AppText';
-import { AppButton } from '../components/ui/AppButton';
-import { AppTextInput } from '../components/ui/AppTextInput';
-import { RootStackParamList } from '../types';
+  View,
+  ScrollView,
+  StyleSheet,
+  Pressable,
+  SafeAreaView,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Colors } from "../constants/colors";
+import { AppText } from "../components/ui/AppText";
+import { AppButton } from "../components/ui/AppButton";
+import { AppTextInput } from "../components/ui/AppTextInput";
+import { RootStackParamList } from "../types";
+import { Calendar, DateData } from "react-native-calendars";
+import { Ionicons } from "@expo/vector-icons";
 
 type Nav = StackNavigationProp<RootStackParamList>;
 
@@ -23,72 +29,145 @@ export const Onboarding: React.FC = () => {
   const nav = useNavigation<Nav>();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<FormData>({
-    name: '', city: '', startDate: '', longDistance: true,
+    name: "",
+    city: "",
+    startDate: "",
+    longDistance: true,
   });
+
+  // Calendar States
+  const [markedDayDate, setMarkedDayDate] = useState<string | null>(null);
+  const [showMarkedCalendar, setShowMarkedCalendar] = useState(false);
+
+  const formatDisplayDate = (dateString: string | null): string => {
+    if (!dateString) return "mm/dd/yyyy";
+    const [year, month, day] = dateString.split("-");
+    return `${month}/${day}/${year}`;
+  };
+
+  const handleMarkedDayPress = (day: DateData) => {
+    setMarkedDayDate(day.dateString);
+    setShowMarkedCalendar(false);
+  };
 
   const steps = [
     {
-      kicker: 'Question 01',
-      title: 'What shall we call you?',
-      sub: 'This is your name inside the journal.',
+      kicker: "Question 01",
+      title: "What shall we call you?",
+      sub: "This is your name inside the journal.",
       body: (
         <AppTextInput
-          label="First name" n="01"
+          label="First name"
+          n="01"
           value={data.name}
-          onChangeText={v => setData(d => ({ ...d, name: v }))}
+          onChangeText={(v) => setData((d) => ({ ...d, name: v }))}
           placeholder="Lou"
         />
       ),
     },
     {
-      kicker: 'Question 02',
-      title: 'And your city?',
-      sub: 'For nearby date ideas and local context.',
+      kicker: "Question 02",
+      title: "And your city?",
+      sub: "For nearby date ideas and local context.",
       body: (
         <AppTextInput
-          label="Current city" n="02"
+          label="Current city"
+          n="02"
           value={data.city}
-          onChangeText={v => setData(d => ({ ...d, city: v }))}
-          placeholder="Los Angeles"
-        />
-      ),
-    },
-     {
-      kicker: 'Question 03',
-      title: 'And your city?',
-      sub: 'For nearby date ideas and local context.',
-      body: (
-        <AppTextInput
-          label="Current city" n="03"
-          value={data.city}
-          onChangeText={v => setData(d => ({ ...d, city: v }))}
+          onChangeText={(v) => setData((d) => ({ ...d, city: v }))}
           placeholder="Los Angeles"
         />
       ),
     },
     {
-      kicker: 'Question 04',
-      title: 'Across a distance?',
+      kicker: "Question 03",
+      title: "When did it begin?",
+      sub: "The date you started — however you count it.",
+      body: (
+        <>
+          <AppText
+            variant="smallCaps"
+            color={Colors.ink2}
+            style={{ fontSize: 10 }}
+          >
+            03 START DATE
+          </AppText>
+          <View style={styles.datePickerRow}>
+            <AppText
+              variant="display"
+              size={22}
+              color={markedDayDate ? Colors.ink : Colors.muted}
+            >
+              {formatDisplayDate(markedDayDate)}
+            </AppText>
+            <Pressable onPress={() => setShowMarkedCalendar((v) => !v)}>
+              <Ionicons name="calendar-outline" size={26} color="#000" />
+            </Pressable>
+          </View>
+
+          {showMarkedCalendar && (
+            <View style={styles.calendarWrapper}>
+              <Calendar
+                onDayPress={handleMarkedDayPress}
+                markedDates={
+                  markedDayDate
+                    ? {
+                        [markedDayDate]: {
+                          selected: true,
+                          selectedColor: Colors.accent,
+                        },
+                      }
+                    : {}
+                }
+                theme={{
+                  todayTextColor: Colors.accent,
+                  arrowColor: Colors.accent,
+                }}
+              />
+            </View>
+          )}
+        </>
+      ),
+    },
+    {
+      kicker: "Question 04",
+      title: "Across a distance?",
       sub: "We'll enable the reunion countdown if so.",
       body: (
         <View>
           {[
-            { k: true, l: 'Yes — we\'re apart', sub: 'Enable reunion countdown' },
-            { k: false, l: 'No — we\'re together', sub: 'Skip the countdown' },
-          ].map(o => (
+            {
+              k: true,
+              l: "Yes — we're apart",
+              sub: "Enable reunion countdown",
+            },
+            { k: false, l: "No — we're together", sub: "Skip the countdown" },
+          ].map((o) => (
             <Pressable
               key={String(o.k)}
-              onPress={() => setData(d => ({ ...d, longDistance: o.k }))}
-              style={[styles.optionRow, { opacity: o.k === data.longDistance ? 1 : 0.6 }]}
+              onPress={() => setData((d) => ({ ...d, longDistance: o.k }))}
+              style={[
+                styles.optionRow,
+                { opacity: o.k === data.longDistance ? 1 : 0.6 },
+              ]}
             >
               <View style={{ flex: 1 }}>
-                <AppText variant="heading" size={18}>{o.l}</AppText>
-                <AppText variant="mono" color={Colors.light} style={{ fontSize: 10, marginTop: 2 }}>
+                <AppText variant="heading" size={18}>
+                  {o.l}
+                </AppText>
+                <AppText
+                  variant="mono"
+                  color={Colors.light}
+                  style={{ fontSize: 10, marginTop: 2 }}
+                >
                   {o.sub.toUpperCase()}
                 </AppText>
               </View>
-              <AppText size={18} color={o.k === data.longDistance ? Colors.accent : Colors.rule}>
-                {o.k === data.longDistance ? '●' : '○'}
+              <AppText
+                size={18}
+                color={o.k === data.longDistance ? Colors.accent : Colors.rule}
+              >
+                {o.k === data.longDistance ? "●" : "○"}
               </AppText>
             </Pressable>
           ))}
@@ -96,16 +175,37 @@ export const Onboarding: React.FC = () => {
       ),
     },
     {
-      kicker: 'Question 05',
-      title: 'Invite your partner',
-      sub: 'For nearby date ideas and local context.',
+      kicker: "INVITATION",
+      title: "Invite your partner",
+      sub: "One private space, two keys.",
       body: (
-        <AppTextInput
-          label="Current city" n="03"
-          value={data.city}
-          onChangeText={v => setData(d => ({ ...d, city: v }))}
-          placeholder="Los Angeles"
-        />
+        <View>
+          <View style={styles.keyBox}>
+            <AppText
+              variant="smallCaps"
+              color={Colors.ink2}
+              style={{marginTop:15}}
+            >
+              YOUR SHARED KEY
+            </AppText>
+            <AppText
+              variant="display"
+              style={{ fontSize: 25, color: Colors.accent, letterSpacing: 2 }}
+            >
+              ALIGNED-CZXSAU
+            </AppText>
+          </View>
+
+          <AppText
+            variant="serifItalic"
+            size={14}
+            color={Colors.muted}
+            style={{ marginTop: 24, textAlign: "center" }}
+          >
+            Share this with your partner.{"\n"}
+            They enter it on their device to join.
+          </AppText>
+        </View>
       ),
     },
   ];
@@ -114,24 +214,43 @@ export const Onboarding: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps="handled">
+      <ScrollView
+        contentContainerStyle={styles.container}
+        keyboardShouldPersistTaps="handled"
+      >
         {/* Header */}
         <View style={styles.topBar}>
-          <AppText variant="smallCaps" color={Colors.muted}>◇  BEGINNING</AppText>
+          <AppText variant="smallCaps" color={Colors.muted}>
+            ◇ BEGINNING
+          </AppText>
           <AppText variant="mono" color={Colors.light} style={{ fontSize: 10 }}>
-            {String(step + 1).padStart(2, '0')} / {String(steps.length).padStart(2, '0')}
+            {String(step + 1).padStart(2, "0")} /{" "}
+            {String(steps.length).padStart(2, "0")}
           </AppText>
         </View>
 
         {/* Step content */}
         <View style={styles.content}>
-          <AppText variant="smallCaps" color={Colors.accent} style={{ marginBottom: 14 }}>
+          <AppText
+            variant="smallCaps"
+            color={Colors.accent}
+            style={{ marginBottom: 14 }}
+          >
             {cur.kicker}
           </AppText>
-          <AppText variant="display" size={42} style={{ lineHeight: 42, marginBottom: 14 }}>
+          <AppText
+            variant="display"
+            size={42}
+            style={{ lineHeight: 42, marginBottom: 14 }}
+          >
             {cur.title}
           </AppText>
-          <AppText variant="serifItalic" size={18} color={Colors.muted} style={{ marginBottom: 36, lineHeight: 27 }}>
+          <AppText
+            variant="serifItalic"
+            size={18}
+            color={Colors.muted}
+            style={{ marginBottom: 36, lineHeight: 27 }}
+          >
             {cur.sub}
           </AppText>
           {cur.body}
@@ -142,7 +261,10 @@ export const Onboarding: React.FC = () => {
           {steps.map((_, i) => (
             <View
               key={i}
-              style={[styles.progressBar, { backgroundColor: i <= step ? Colors.accent : Colors.rule }]}
+              style={[
+                styles.progressBar,
+                { backgroundColor: i <= step ? Colors.accent : Colors.rule },
+              ]}
             />
           ))}
         </View>
@@ -150,7 +272,12 @@ export const Onboarding: React.FC = () => {
         {/* Actions */}
         <View style={styles.actions}>
           {step > 0 && (
-            <AppButton variant="outline" size="lg" onPress={() => setStep(s => s - 1)} style={{ flex: 1 }}>
+            <AppButton
+              variant="outline"
+              size="lg"
+              onPress={() => setStep((s) => s - 1)}
+              style={{ flex: 1 }}
+            >
               Back
             </AppButton>
           )}
@@ -158,9 +285,15 @@ export const Onboarding: React.FC = () => {
             variant="solid"
             size="lg"
             style={{ flex: step > 0 ? 2 : 1 }}
-            onPress={() => step < steps.length - 1 ? setStep(s => s + 1) : nav.navigate('AlignedApp')}
+            onPress={() => {
+              if (step < steps.length - 1) {
+                setStep((s) => s + 1);
+              } else {
+                nav.navigate("AlignedApp");
+              }
+            }}
           >
-            {step === steps.length - 1 ? 'Enter →' : 'Continue'}
+            {step === steps.length - 1 ? "Enter →" : "Continue"}
           </AppButton>
         </View>
       </ScrollView>
@@ -171,17 +304,45 @@ export const Onboarding: React.FC = () => {
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: Colors.bone },
   container: { flexGrow: 1, padding: 32 },
-  topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 48 },
+  topBar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "baseline",
+    marginBottom: 48,
+  },
   content: { flex: 1 },
+  datePickerRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.rule,
+    paddingVertical: 1,
+  },
+  calendarWrapper: {
+    marginTop: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: Colors.rule,
+    overflow: "hidden",
+  },
   optionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingVertical: 18,
     borderBottomWidth: 1,
     borderBottomColor: Colors.rule,
     gap: 12,
   },
-  progress: { flexDirection: 'row', gap: 4, marginBottom: 18 },
+  keyBox: {
+    borderWidth: 1,
+    borderColor: Colors.accent,
+    padding: 20,
+
+    alignItems: "center",
+    marginTop: 4,
+  },
+  progress: { flexDirection: "row", gap: 4, marginBottom: 18 },
   progressBar: { flex: 1, height: 2, borderRadius: 1 },
-  actions: { flexDirection: 'row', gap: 10 },
+  actions: { flexDirection: "row", gap: 10 },
 });

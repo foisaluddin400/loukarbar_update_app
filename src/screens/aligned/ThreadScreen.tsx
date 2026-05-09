@@ -8,6 +8,7 @@ import { BottomSheet } from '../../components/ui/BottomSheet';
 import { ThreadEntryCard } from '../../components/thread/ThreadEntry';
 import { usePersist } from '../../hooks/usePersist';
 import { ThreadEntry } from '../../types';
+import AlignedNav from '@/components/ui/AlignedNav';
 
 const SEED: ThreadEntry[] = [
   { id: 1, from: 'amanda', type: 'letter', text: 'I was thinking about you on my walk today...', date: 'February 22', time: '3:40 PM' },
@@ -54,6 +55,7 @@ export const ThreadScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <AlignedNav></AlignedNav>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.inner}>
           <AppText variant="display" size={42} style={{ lineHeight: 42, marginBottom: 6 }}>

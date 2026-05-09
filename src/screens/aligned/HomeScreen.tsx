@@ -19,6 +19,7 @@ import { formatTime } from "../../utils/dateUtils";
 import UsSection from "./UsSection";
 import Rhythms from "./Rhythms";
 import { AppTextInput } from "@/components/ui/AppTextInput";
+import AlignedNav from "@/components/ui/AlignedNav";
 
 const MOODS_DESIRE = [
   { mark: "◯", label: "At peace" },
@@ -94,6 +95,7 @@ export const HomeScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <AlignedNav></AlignedNav>
       <ScrollView showsVerticalScrollIndicator={false}>
         <PresenceStrip activeUser={activeUser} />
 

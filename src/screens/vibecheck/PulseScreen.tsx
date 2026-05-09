@@ -5,6 +5,8 @@ import { AppText } from '../../components/ui/AppText';
 import { BottomSheet } from '../../components/ui/BottomSheet';
 import { LadderRow } from '../../components/vibecheck/LadderRow';
 import { usePersist } from '../../hooks/usePersist';
+import { VibeTabs } from '@/navigation/VibeTabs';
+import SamVibeNav from '@/components/ui/SamVibeNav';
 
 const LADDER = [
   { l: 'Talking', sub: 'Texting, flirting — no dates yet' },
@@ -86,6 +88,7 @@ export const PulseScreen: React.FC = () => {
   // ==================== MAIN PULSE OVERVIEW ====================
   return (
     <SafeAreaView style={styles.safe}>
+      <SamVibeNav></SamVibeNav>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.inner}>
           <AppText variant="display" size={42} style={{ lineHeight: 42, marginBottom: 6 }}>
@@ -141,7 +144,7 @@ export const PulseScreen: React.FC = () => {
         kicker="OVERALL"
         title="80% IN SYNC"
       >
-        <View style={{ paddingHorizontal: 20, paddingBottom: 30 }}>
+        <View >
           <AppText variant="serifItalic" size={14} color={Colors.muted} style={{ marginBottom: 24 }}>
             4 matches across 5 cards played.
           </AppText>
@@ -200,7 +203,7 @@ export const PulseScreen: React.FC = () => {
         kicker="LOG A MOMENT"
         title="Something just happened?"
       >
-        <View style={{ paddingHorizontal: 20, paddingBottom: 30 }}>
+        <View >
           <View style={{ flexDirection: 'row', gap: 12, marginBottom: 24 }}>
             {[
               { color: Colors.sage, label: 'GREEN', count: 2 },

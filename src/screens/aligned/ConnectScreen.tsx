@@ -15,6 +15,7 @@ import { usePersist } from "../../hooks/usePersist";
 import { Activity } from "../../types";
 import Moment from "./Moment";
 import { AppTextInput } from "@/components/ui/AppTextInput";
+import AlignedNav from "@/components/ui/AlignedNav";
 
 const SEED_ACTIVITIES: Activity[] = [
   {
@@ -93,6 +94,7 @@ export const ConnectScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.safe}>
+      <AlignedNav></AlignedNav>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.inner}>
           <AppText
