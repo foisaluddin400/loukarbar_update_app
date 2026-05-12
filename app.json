@@ -15,6 +15,7 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#F4EEE4"
+        
       },
       "package": "com.foisaldev.alignedrn"
     },
