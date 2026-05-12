@@ -92,9 +92,9 @@ const Rhythms: React.FC = () => {
       </Pressable>
 
       <AppText
-        variant="mono"
+        variant="serifItalic"
         color={Colors.muted}
-        style={{ textAlign: "center", marginTop: 12, fontSize: 12 }}
+        style={{ textAlign: "center", marginTop: 40, fontSize: 12 }}
       >
         Published daily, for two.
       </AppText>

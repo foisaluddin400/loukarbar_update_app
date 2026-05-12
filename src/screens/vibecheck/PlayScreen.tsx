@@ -5,9 +5,12 @@ import { AppText } from '../../components/ui/AppText';
 import { AppButton } from '../../components/ui/AppButton';
 import { ThisOrThatCard } from '../../components/vibecheck/ThisOrThatCard';
 import { usePersist } from '../../hooks/usePersist';
-import { PlayHistoryEntry, ThisOrThatCard as TCard } from '../../types';
+import { PlayHistoryEntry, ThisOrThatCard as TCard, VibeTabParamList } from '../../types';
 import { todayIso } from '../../utils/dateUtils';
 import SamVibeNav from '@/components/ui/SamVibeNav';
+import { PulseScreen } from './PulseScreen';
+import { useNavigation } from '@react-navigation/native';
+import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 const TOT_CARDS: TCard[] = [
   { a: 'Beach', b: 'Mountains', cat: 'Travel' },
@@ -23,6 +26,7 @@ const TOT_CARDS: TCard[] = [
 const DAILY_LIMIT = 3;
 
 export const PlayScreen: React.FC = () => {
+  const navigation = useNavigation<BottomTabNavigationProp<VibeTabParamList>>();
   const [cardIdx, setCardIdx] = usePersist<number>('vc.c1.play.cardIdx', 0);
   const [history, setHistory] = usePersist<PlayHistoryEntry[]>('vc.c1.play.history', []);
   const [activeDays, setActiveDays] = usePersist<string[]>('vc.c1.play.activeDays', []);
@@ -161,19 +165,37 @@ export const PlayScreen: React.FC = () => {
 
               {/* Pulse teaser */}
               {history.length >= 4 && (
-                <View style={styles.pulseTease}>
-                  <View style={{ flex: 1 }}>
-                    <AppText variant="smallCaps" color={Colors.accent} style={{ marginBottom: 4 }}>The Pulse · unlocked</AppText>
-                    <AppText variant="heading" size={16} color={Colors.bone} style={{ marginBottom: 2 }}>
-                      You're {matchRate}% in sync
-                    </AppText>
-                    <AppText variant="serifItalic" size={13} color={Colors.cream2}>See your patterns →</AppText>
-                  </View>
-                  <AppText size={18} color={Colors.accent}>→</AppText>
-                </View>
+             <Pressable
+  style={styles.pulseTease}
+   onPress={() => navigation.navigate('Pulse')}
+>
+  <View style={{ flex: 1 }}>
+    <AppText variant="smallCaps" color={Colors.accent} style={{ marginBottom: 4 }}>
+      The Pulse · unlocked
+    </AppText>
+
+    <AppText variant="heading" size={16} color={Colors.bone} style={{ marginBottom: 2 }}>
+      You're {matchRate}% in sync
+    </AppText>
+
+    <AppText variant="serifItalic" size={13} color={Colors.cream2}>
+      See your patterns →
+    </AppText>
+  </View>
+
+  <AppText size={18} color={Colors.accent}>→</AppText>
+</Pressable>
               )}
             </>
           )}
+
+          <AppText
+        variant="serifItalic"
+        color={Colors.muted}
+        style={{ textAlign: "center", marginTop: 40, fontSize: 12 }}
+      >
+        One card a day. Build the streak.
+      </AppText>
 
           <View style={{ height: 80 }} />
         </View>

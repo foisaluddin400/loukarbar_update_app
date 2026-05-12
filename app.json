@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "aligned.",
+    "name": "aligned",
     "slug": "aligned-rn",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,7 +15,8 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#F4EEE4"
-      }
+      },
+      "package": "com.foisaldev.alignedrn"
     },
     "plugins": [
       "expo-font"

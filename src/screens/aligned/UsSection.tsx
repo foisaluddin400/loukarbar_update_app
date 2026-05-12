@@ -115,7 +115,7 @@ const UsSection: React.FC = () => {
                   gap: 12,
                 }}
               >
-                <AppText variant="display" size={80} style={{ lineHeight: 80 }}>
+                <AppText variant="display" size={90} style={{ lineHeight: 80 }}>
                   {days}
                 </AppText>
                 <View>
@@ -142,25 +142,32 @@ const UsSection: React.FC = () => {
             </View>
 
             <View style={styles.milestoneRow}>
-              {[
-                { value: "500", label: "MILESTONE" },
-                { value: "190d", label: "NEXT ANNIVERSARY" },
-                { value: "30", label: "MONTHS" },
-              ].map(({ value, label }) => (
-                <View key={label} style={styles.milestoneBox}>
-                  <AppText variant="display" size={32}>
-                    {value}
-                  </AppText>
-                  <AppText
-                    variant="mono"
-                    color={Colors.muted}
-                    style={{ fontSize: 12, marginTop: 4 }}
-                  >
-                    {label}
-                  </AppText>
-                </View>
-              ))}
-            </View>
+  {[
+    { value: "500", label: "MILESTONE" },
+    { value: "190d", label: "NEXT ANNIVERSARY" },
+    { value: "30", label: "MONTHS" },
+  ].map(({ value, label }, index, array) => (
+    <View 
+      key={label} 
+      style={[
+        styles.milestoneBox1,
+        // Add right border only if it's NOT the last item
+        index < array.length - 1 && styles.milestoneBorder
+      ]}
+    >
+      <AppText variant="display" size={32}>
+        {value}
+      </AppText>
+      <AppText
+        variant="mono"
+        color={Colors.muted}
+        style={{ fontSize: 12, marginTop: 4 }}
+      >
+        {label}
+      </AppText>
+    </View>
+  ))}
+</View>
           </View>
         )}
 
@@ -261,12 +268,12 @@ const UsSection: React.FC = () => {
         kicker="PAGE 02"
         title="Our beginning"
       >
-        <View style={styles.sheetInner}>
+        <View >
           <AppText
             variant="serifItalic"
             size={15}
             color={Colors.muted}
-            style={{ marginBottom: 24 }}
+            style={{ marginBottom: 24 , marginTop:15,}}
           >
             When did your story begin?
           </AppText>
@@ -280,7 +287,7 @@ const UsSection: React.FC = () => {
           </AppText>
 
           <View style={styles.datePickerRow}>
-            <AppText variant="display" size={32}>
+            <AppText variant="display" style={{letterSpacing:1}} size={20}>
               {formatDisplayDate(startDate)}
             </AppText>
             <Pressable onPress={() => setShowStartCalendar((v) => !v)}>
@@ -323,7 +330,7 @@ const UsSection: React.FC = () => {
         kicker="DATES"
         title="Add a marked day"
       >
-        <View style={styles.sheetInner}>
+        <View style={{marginTop:8}}>
           <View>
             <AppTextInput
               label="What it is"
@@ -413,7 +420,7 @@ const UsSection: React.FC = () => {
         kicker="REUNION"
         title="Next time, together"
       >
-        <View style={styles.sheetInner}>
+        <View >
           <AppText
             variant="serifItalic"
             size={15}
@@ -514,16 +521,25 @@ const styles = StyleSheet.create({
   },
 
   timeTab: { padding: 10 },
-  milestoneRow: { flexDirection: "row", marginTop: 32, gap: 12 },
-  milestoneBox: {
-    flex: 1,
-    borderRadius: 12,
-    paddingVertical: 16,
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: Colors.rule,
-  },
+milestoneRow: { 
+  flexDirection: "row", 
+  marginTop: 32,
+  marginHorizontal:10
+},
 
+milestoneBox1: {
+  flex: 1,
+  paddingVertical: 16,
+  alignItems: "center",
+    borderTopWidth: 1,
+  borderColor: Colors.rule,
+  paddingHorizontal:10,
+},
+
+milestoneBorder: {
+  borderRightWidth: 1,
+  borderColor: Colors.rule,
+},
   datesTab: { padding: 10 },
   dateRow: {
     flexDirection: "row",
@@ -550,7 +566,7 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
 
-  sheetInner: {  paddingBottom: 30 },
+
   sheetLabel: { fontSize: 12, marginBottom: 8 },
   datePickerRow: {
     flexDirection: "row",

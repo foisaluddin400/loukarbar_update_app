@@ -65,15 +65,27 @@ const LIBRARY = [
 ];
 
 export const ConnectScreen: React.FC = () => {
+    const [filter, setFilter] = useState<string>('all');
   const [activities, setActivities] = usePersist<Activity[]>(
     "connect.acts",
     SEED_ACTIVITIES,
+    
   );
+  const TYPES = ['⟡ All', '✧ movement', '◈ cooking', ' ◇ Adventure', '◐ Cozy', '❦ Creative'] as const
+
+  
+
   const [mood, setMood] = useState("INTIMATE");
   const [tab, setTab] = useState<"yours" | "browse">("yours");
   const [sheet, setSheet] = useState<string | null>(null);
   const [selected, setSelected] = useState<Activity | null>(null);
-  const moods = ["✧ Movement", "◈ Cooking", "◇ Adventure", "◐ Cozy", "❦ Creative"];
+  const moods = [
+    "✧ Movement",
+    "◈ Cooking",
+    "◇ Adventure",
+    "◐ Cozy",
+    "❦ Creative",
+  ];
   const fresh = activities.filter((a) => {
     if (!a.createdAt) return false;
     return Date.now() - new Date(a.createdAt).getTime() < 86_400_000;
@@ -206,6 +218,26 @@ export const ConnectScreen: React.FC = () => {
 
           {tab === "browse" && (
             <>
+            <View style={{ flexDirection: 'row', gap: 6 }}>
+              {TYPES.map((t) => (
+                <Pressable key={t} onPress={() => setFilter(t)}>
+                  <AppText 
+                    variant="smallCaps" 
+                    style={{ 
+                      paddingHorizontal: 16, 
+                      paddingVertical: 8, 
+                      backgroundColor: filter === t ? Colors.ink : Colors.bone,
+                      color: filter === t ? '#fff' : Colors.muted,
+                      borderRadius: 20,
+                      borderWidth: 1,
+                      borderColor: Colors.rule,
+                    }}
+                  >
+                    {t.charAt(0).toUpperCase() + t.slice(1)}
+                  </AppText>
+                </Pressable>
+              ))}
+            </View>
               {LIBRARY.map((item, i) => (
                 <Pressable
                   key={i}
@@ -359,41 +391,42 @@ export const ConnectScreen: React.FC = () => {
         kicker="NEW"
         title="Suggest an activity"
       >
+        <AppTextInput label="Name" n="01" placeholder="Morning Walk" />
 
+        <AppTextInput label="Duration" n="02" placeholder="30 min" />
 
-<AppTextInput label="Name" n="01" placeholder="Morning Walk" />
-
-<AppTextInput label="Duration" n="02" placeholder="30 min" />
-
-<AppTextInput label="Description" n="03" placeholder="What you'll do together" />
- <AppText
+        <AppTextInput
+          label="Description"
+          n="03"
+          placeholder="What you'll do together"
+        />
+        <AppText
+          variant="smallCaps"
+          color={Colors.ink2}
+          style={{ marginTop: 15, marginBottom: 10 }}
+        >
+          04 Category
+        </AppText>
+        <View style={styles.chipRow}>
+          {moods.map((m) => (
+            <Pressable
+              key={m}
+              style={[styles.chip, mood === m && styles.chipSelected]}
+              onPress={() => setMood(m)}
+            >
+              <AppText
                 variant="smallCaps"
-                color={Colors.ink2}
-                style={{ marginTop: 15, marginBottom: 10 }}
+                style={{
+                  color: mood === m ? "#e7e3e3" : Colors.muted,
+                  fontSize: 9,
+                }}
               >
-                04 Category
+                {m}
               </AppText>
-              <View style={styles.chipRow}>
-                {moods.map((m) => (
-                  <Pressable
-                    key={m}
-                    style={[styles.chip, mood === m && styles.chipSelected]}
-                    onPress={() => setMood(m)}
-                  >
-                    <AppText
-                    variant="smallCaps"
-                      style={{
-                        color: mood === m ? "#e7e3e3" : Colors.muted,
-                        fontSize: 9,
-                      }}
-                    >
-                      {m}
-                    </AppText>
-                  </Pressable>
-                ))}
-              </View>
+            </Pressable>
+          ))}
+        </View>
 
-        
         <AppButton
           full
           variant="solid"
@@ -433,11 +466,12 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   chipRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 8,
+    marginBottom:15
   },
- chip: {
+  chip: {
     paddingHorizontal: 13,
     paddingVertical: 3,
 
@@ -461,6 +495,7 @@ const styles = StyleSheet.create({
   libraryCard: {
     flexDirection: "row",
     gap: 14,
+    marginTop:10,
     backgroundColor: Colors.bone,
     borderRadius: 14,
     borderWidth: 1,

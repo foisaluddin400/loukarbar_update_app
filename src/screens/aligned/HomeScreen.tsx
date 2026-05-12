@@ -20,6 +20,7 @@ import UsSection from "./UsSection";
 import Rhythms from "./Rhythms";
 import { AppTextInput } from "@/components/ui/AppTextInput";
 import AlignedNav from "@/components/ui/AlignedNav";
+import OurPlaylist from "./OurPlaylist";
 
 const MOODS_DESIRE = [
   { mark: "◯", label: "At peace" },
@@ -167,9 +168,9 @@ export const HomeScreen: React.FC = () => {
                 Ritual · {formatTime(new Date())}
               </AppText>
               <AppText
-                variant="heading"
+                variant="display"
                 size={22}
-                style={{ lineHeight: 26, marginBottom: 6 }}
+                style={{ lineHeight: 26, marginBottom: 6, letterSpacing:0.1 }}
               >
                 {ritual.title}
               </AppText>
@@ -198,6 +199,8 @@ export const HomeScreen: React.FC = () => {
           </View>
 
           <UsSection />
+
+          <OurPlaylist></OurPlaylist>
 
           {/* Desire Mood */}
           <AppText
@@ -295,20 +298,13 @@ export const HomeScreen: React.FC = () => {
         kicker="APPRECIATION · ❦"
         title="A love note"
       >
-        <AppText
-          variant="serifItalic"
-          size={15}
-          color={Colors.muted}
-          style={{ marginBottom: 22, lineHeight: 22 }}
-        >
-          One thing you noticed about them this week.
-        </AppText>
-        <View style={styles.appreciationInput}>
-          {/* In a real app: use AppTextInput multiline */}
-          <AppText variant="serifItalic" size={18} color={Colors.light}>
-            One thing I love about you is...
-          </AppText>
-        </View>
+       <View>
+                   <AppText variant="serifItalic" size={15} color={Colors.muted} style={{ marginBottom: 18, lineHeight: 22 }}>
+                     One thing you noticed about them this week. Small is fine — true is better.
+                   </AppText>
+                   <AppTextInput multiline placeholder="One thing I love about you is..." style={{ minHeight: 140 }} />
+                
+                 </View>
         <AppButton
           variant="solid"
           full
@@ -334,7 +330,7 @@ export const HomeScreen: React.FC = () => {
           variant="serifItalic"
           size={15}
           color={Colors.muted}
-          style={{ marginBottom: 22, lineHeight: 22 }}
+          style={{ marginVertical: 15, lineHeight: 22 }}
         >
          Three questions. Honest answers. A gentle pulse on where you both are this week.
         </AppText>

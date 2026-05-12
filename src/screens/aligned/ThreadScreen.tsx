@@ -250,11 +250,12 @@ const styles = StyleSheet.create({
 
   photoPlaceholder: {
     height: 160,
-    backgroundColor: '#F9F7F4',
-    borderRadius: 14,
+    backgroundColor: '#EAE2D4',
+   
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
+  
     borderColor: Colors.rule,
     marginBottom: 16,
   },

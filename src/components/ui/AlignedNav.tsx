@@ -17,7 +17,7 @@ const AlignedNav: React.FC = () => {
       </AppText>
 
       <Pressable style={styles.partnerContainer} onPress={togglePartner}>
-        <AppText variant="mono" style={styles.partnerName}>
+        <AppText variant="smallCaps" style={styles.partnerName}>
           {isAmanda ? 'AMANDA' : 'LOU'}
         </AppText>
         <View style={styles.avatar}>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderBottomColor:Colors.rule
   },
   alignedText: {
-    fontSize: 25,
+    fontSize: 23,
     letterSpacing: 0.5,
     color: Colors.ink,
   },
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   partnerName: {
     fontSize: 10,
     letterSpacing: 0.5,
-    color: Colors.ink,
+    color: Colors.muted,
   },
   avatar: {
     width: 32,

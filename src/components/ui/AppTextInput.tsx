@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   n: { fontSize: 9, color: Colors.light, letterSpacing: 2 },
   input: {
     fontFamily: Fonts.fraunces,
-    fontSize: 17,
+    fontSize: 15,
     lineHeight: 24,
     color: Colors.ink,
     paddingVertical: 8,

@@ -75,7 +75,7 @@ const Moment: React.FC = () => {
           disabled={thinkingSent}
         >
           <View style={styles.dotContainer}>
-            ✧
+           ◉
           </View>
           <AppText variant="heading" size={18} style={{ marginTop: 8 }}>
             Thinking of you
@@ -146,7 +146,7 @@ const Moment: React.FC = () => {
             <AppText
               variant="smallCaps"
               color={Colors.ink2}
-              style={{ fontSize: 12, marginBottom: 12 }}
+              style={{ fontSize: 10, marginBottom: 12 }}
             >
               01 WHERE
             </AppText>
@@ -189,7 +189,7 @@ const Moment: React.FC = () => {
  <AppText
               variant="smallCaps"
               color={Colors.ink2}
-              style={{ fontSize: 12, }}
+              style={{ fontSize: 10, }}
             >
               04 TIME
             </AppText>
@@ -232,7 +232,7 @@ const Moment: React.FC = () => {
             <AppText
               variant="smallCaps"
               color={Colors.ink2}
-              style={{ fontSize: 12,  }}
+              style={{ fontSize: 10,  }}
             >
               04 TIME
             </AppText>
@@ -305,17 +305,19 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    backgroundColor: Colors.bone,
+   backgroundColor: Colors.cream,
     borderRadius: 14,
     borderWidth: 1,
     borderColor: Colors.rule,
     padding: 18,
     minHeight: 138,
+    
   },
   dotContainer: {
     height: 20,
     justifyContent: "center",
-  },
+    color:Colors.accent,
+  fontSize:25  },
   dot: {
     width: 10,
     height: 10,
@@ -323,6 +325,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF3B30",
   },
   dotSent: {
+    
     backgroundColor: Colors.accent,
   },
   circle: {
