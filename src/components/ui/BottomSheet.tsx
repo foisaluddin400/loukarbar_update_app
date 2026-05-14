@@ -117,7 +117,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           <ScrollView
   contentContainerStyle={[
     styles.content,
-    { paddingBottom: 80 }
+
   ]}
   showsVerticalScrollIndicator={false}
   bounces={false}
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   borderTopLeftRadius: 28,
   borderTopRightRadius: 28,
   overflow: 'hidden',
-  paddingBottom: Platform.OS === 'ios' ? 40 : 20,
+
 },
   handleContainer: {
     alignItems: 'center',

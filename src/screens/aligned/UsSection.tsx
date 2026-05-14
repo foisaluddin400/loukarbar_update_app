@@ -318,7 +318,7 @@ const UsSection: React.FC = () => {
             </View>
           )}
 
-          <AppButton variant="solid" full size="lg" style={{ marginTop: 40 }}>
+          <AppButton variant="solid" full size="lg" style={{ marginTop: 20 }}>
             SAVE →
           </AppButton>
         </View>

@@ -245,7 +245,10 @@ const SamVibeNav: React.FC = () => {
             </View>
           </Pressable>
 
-          <Pressable style={styles.addConnection}>
+          <Pressable style={styles.addConnection}   onPress={() => {
+                setSwitchSheet(false);
+                setInviteSheet(true);
+              }}>
             <AppText
               variant="mono"
               color={Colors.accent}

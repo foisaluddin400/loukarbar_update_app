@@ -90,34 +90,35 @@ export const ThreadScreen: React.FC = () => {
           </View>
 
           {/* Filter Chips - KEPT AS REQUESTED */}
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 22 }}>
-            <View style={{ flexDirection: 'row', gap: 6 }}>
-              {TYPES.map((t) => (
-                <Pressable key={t} onPress={() => setFilter(t)}>
-                  <AppText 
-                    variant="smallCaps" 
-                    style={{ 
-                      paddingHorizontal: 16, 
-                      paddingVertical: 8, 
-                      backgroundColor: filter === t ? Colors.ink : Colors.bone,
-                      color: filter === t ? '#fff' : Colors.ink,
-                      borderRadius: 20,
-                      borderWidth: 1,
-                      borderColor: Colors.rule,
-                    }}
-                  >
-                    {t.charAt(0).toUpperCase() + t.slice(1)}
-                  </AppText>
-                </Pressable>
-              ))}
-            </View>
-          </ScrollView>
+          <View style={{ marginTop: 8, marginBottom: 28 }}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={{ flexDirection: 'row', gap: 8 }}>
+                {TYPES.map((t) => (
+                  <Pressable key={t} onPress={() => setFilter(t)}>
+                    <AppText 
+                      variant="smallCaps" 
+                      style={{ 
+                        paddingHorizontal: 18, 
+                        paddingVertical: 9, 
+                        backgroundColor: filter === t ? Colors.ink : Colors.bone,
+                        color: filter === t ? '#fff' : Colors.ink,
+                        borderRadius: 20,
+                        borderWidth: 1,
+                        borderColor: Colors.rule,
+                      }}
+                    >
+                      {t.charAt(0).toUpperCase() + t.slice(1)}
+                    </AppText>
+                  </Pressable>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
 
-          {/* Entries - KEPT AS REQUESTED */}
+          {/* Entries */}
           {filtered.map((entry) => (
             <ThreadEntryCard key={entry.id} entry={entry} />
           ))}
-
           <View style={{ height: 80 }} />
         </View>
       </ScrollView>
