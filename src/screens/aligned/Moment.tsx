@@ -7,6 +7,7 @@ import { BottomSheet } from "@/components/ui/BottomSheet";
 import { AppTextInput } from "@/components/ui/AppTextInput";
 import { Calendar, DateData } from "react-native-calendars";
 import { Ionicons } from "@expo/vector-icons";
+import Confidential from "./Confidential";
 
 const Moment: React.FC = () => {
   const [thinkingSent, setThinkingSent] = useState(false);
@@ -74,9 +75,7 @@ const Moment: React.FC = () => {
           onPress={() => setThinkingSent(true)}
           disabled={thinkingSent}
         >
-          <View style={styles.dotContainer}>
-           ◉
-          </View>
+          <View style={styles.dotContainer}>◉</View>
           <AppText variant="heading" size={18} style={{ marginTop: 8 }}>
             Thinking of you
           </AppText>
@@ -97,14 +96,11 @@ const Moment: React.FC = () => {
           )}
         </Pressable>
 
-        
         <Pressable
           style={styles.card}
           onPress={() => setActiveSheet("watchTogether")}
         >
-          <View style={styles.dotContainer}>
-            ◐
-          </View>
+          <View style={styles.dotContainer}>◐</View>
           <AppText variant="heading" size={18} style={{ marginTop: 8 }}>
             Watch together
           </AppText>
@@ -123,6 +119,8 @@ const Moment: React.FC = () => {
         Things that exist in the present — they don't get saved.
       </AppText>
 
+
+<Confidential></Confidential>
       {/* ==================== WATCH TOGETHER BOTTOM SHEET ==================== */}
       <BottomSheet
         open={activeSheet === "watchTogether"}
@@ -186,15 +184,14 @@ const Moment: React.FC = () => {
           <View style={{ marginBottom: 5 }}>
             <AppTextInput label="What" n="01" placeholder="Severance • S2 E4" />
           </View>
- <AppText
-              variant="smallCaps"
-              color={Colors.ink2}
-              style={{ fontSize: 10, }}
-            >
-              04 TIME
-            </AppText>
+          <AppText
+            variant="smallCaps"
+            color={Colors.ink2}
+            style={{ fontSize: 10 }}
+          >
+            04 TIME
+          </AppText>
           <View style={styles.datePickerRow}>
-            
             <AppText variant="display" size={16}>
               {formatDisplayDate(reunionDateStr)}
             </AppText>
@@ -227,12 +224,19 @@ const Moment: React.FC = () => {
           )}
 
           {/* TIME */}
-          <View style={{ marginBottom: 32, paddingTop:10,   borderTopWidth: 1,borderBottomWidth:1,
-    borderColor: Colors.rule, }}>
+          <View
+            style={{
+              marginBottom: 32,
+              paddingTop: 10,
+              borderTopWidth: 1,
+              borderBottomWidth: 1,
+              borderColor: Colors.rule,
+            }}
+          >
             <AppText
               variant="smallCaps"
               color={Colors.ink2}
-              style={{ fontSize: 10,  }}
+              style={{ fontSize: 10 }}
             >
               04 TIME
             </AppText>
@@ -305,19 +309,19 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-   backgroundColor: Colors.cream,
+    backgroundColor: Colors.cream,
     borderRadius: 14,
     borderWidth: 1,
     borderColor: Colors.rule,
     padding: 18,
     minHeight: 138,
-    
   },
   dotContainer: {
     height: 20,
     justifyContent: "center",
-    color:Colors.accent,
-  fontSize:25  },
+    color: Colors.accent,
+    fontSize: 25,
+  },
   dot: {
     width: 10,
     height: 10,
@@ -325,7 +329,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF3B30",
   },
   dotSent: {
-    
     backgroundColor: Colors.accent,
   },
   circle: {

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
   Modal,
   View,
@@ -7,15 +7,15 @@ import {
   ScrollView,
   Dimensions,
   Platform,
-} from 'react-native';
+} from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-} from 'react-native-reanimated';
-import { Colors } from '../../constants/colors';
-import { AppText } from './AppText';
-import { AppButton } from './AppButton';
+} from "react-native-reanimated";
+import { Colors } from "../../constants/colors";
+import { AppText } from "./AppText";
+import { AppButton } from "./AppButton";
 
 interface BottomSheetProps {
   open: boolean;
@@ -26,7 +26,7 @@ interface BottomSheetProps {
   children: React.ReactNode;
 }
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
 
 export const BottomSheet: React.FC<BottomSheetProps> = ({
   open,
@@ -57,11 +57,9 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     transform: [{ translateY: translateY.value }],
   }));
 
-
-
   const bg = dark ? Colors.ink : Colors.bone;
   const textColor = dark ? Colors.bone : Colors.ink;
-  const subtleColor = dark ? 'rgba(255,255,255,0.15)' : Colors.rule;
+  const subtleColor = dark ? "rgba(255,255,255,0.15)" : Colors.rule;
 
   return (
     <Modal
@@ -74,31 +72,36 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
       <View style={styles.overlay}>
         <Pressable style={StyleSheet.absoluteFill} onPress={onClose} />
 
-      <Animated.View
-  style={[
-    styles.sheet,
-    animatedStyle,
-    { backgroundColor: bg, flexShrink: 1 }
-  ]}
->
+        <Animated.View
+          style={[
+            styles.sheet,
+            animatedStyle,
+            { backgroundColor: bg, flexShrink: 1 },
+          ]}
+        >
           {/* Handle */}
           <View style={styles.handleContainer}>
             <View style={[styles.handle, { backgroundColor: subtleColor }]} />
           </View>
 
           {/* Header */}
-          <View style={[styles.header, { borderBottomColor: subtleColor, marginBottom:15 }]}>
+          <View
+            style={[
+              styles.header,
+              { borderBottomColor: subtleColor, marginBottom: 15 },
+            ]}
+          >
             <View style={{ flex: 1 }}>
               {kicker && (
                 <AppText
                   variant="smallCaps"
                   color={dark ? Colors.light : Colors.muted}
-                  style={{ marginBottom: 4 }}
+                
                 >
                   {kicker}
                 </AppText>
               )}
-              <AppText variant="heading" size={26} color={textColor}>
+              <AppText variant="display" style={{marginBottom:-20,marginTop:-10, letterSpacing:0.1}} size={27} color={textColor}>
                 {title}
               </AppText>
             </View>
@@ -108,6 +111,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
               size="sm"
               onPress={onClose}
               textStyle={{ color: dark ? Colors.light : Colors.muted }}
+              style={{borderWidth:1, borderColor: Colors.rule, borderRadius:30}}
             >
               Close
             </AppButton>
@@ -115,14 +119,11 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 
           {/* Content */}
           <ScrollView
-  contentContainerStyle={[
-    styles.content,
-
-  ]}
-  showsVerticalScrollIndicator={false}
-  bounces={false}
-  keyboardShouldPersistTaps="handled"
->
+            contentContainerStyle={[styles.content]}
+            showsVerticalScrollIndicator={false}
+            bounces={false}
+            keyboardShouldPersistTaps="handled"
+          >
             {children}
           </ScrollView>
         </Animated.View>
@@ -134,19 +135,18 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    justifyContent: 'flex-end',
-    backgroundColor: 'rgba(26, 22, 20, 0.65)',
+    justifyContent: "flex-end",
+    backgroundColor: "rgba(26, 22, 20, 0.65)",
   },
- sheet: {
-  maxHeight: '90%',
-  minHeight: 200,
-  borderTopLeftRadius: 28,
-  borderTopRightRadius: 28,
-  overflow: 'hidden',
-
-},
+  sheet: {
+    maxHeight: "90%",
+    minHeight: 200,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    overflow: "hidden",
+  },
   handleContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingTop: 12,
     paddingBottom: 8,
   },
@@ -156,8 +156,8 @@ const styles = StyleSheet.create({
     borderRadius: 3,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
     paddingHorizontal: 20,
     paddingVertical: 16,
     borderBottomWidth: 1,
