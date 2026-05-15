@@ -96,7 +96,7 @@ const UsSection: React.FC = () => {
               <AppText
                 variant="smallCaps"
                 color={activeUsTab === tab ? Colors.ink : Colors.muted}
-                style={{ fontSize: 13, letterSpacing: 0.5 }}
+                style={{ fontSize: 12, letterSpacing: 0.5 }}
               >
                 {tab}
               </AppText>
@@ -506,8 +506,9 @@ const styles = StyleSheet.create({
   },
   tab: {
     flex: 1,
-    paddingVertical: 12,
+    paddingVertical: 10,
     alignItems: "center",
+    
     position: "relative",
   },
   tabIndicator: {
