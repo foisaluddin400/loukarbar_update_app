@@ -10,6 +10,7 @@ import { AlignedTabs } from './AlignedTabs';
 import { VCWelcome } from '../screens/vibecheck/VCWelcome';
 import { VCOnboarding } from '../screens/vibecheck/VCOnboarding';
 import { VibeTabs } from './VibeTabs';
+import Login from '@/screens/Login';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -18,8 +19,9 @@ export default function RootNavigator() {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false, animationEnabled: true }}
-        initialRouteName="ModeSelector"
+        initialRouteName="Login"
       >
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ModeSelector" component={ModeSelector} />
         <Stack.Screen name="AlignedWelcome" component={Welcome} />
         <Stack.Screen name="AlignedOnboarding" component={Onboarding} />
