@@ -158,6 +158,7 @@ export type AppScreen = 'mode' | 'welcome' | 'onboarding' | 'app';
 
 export type RootStackParamList = {
   ModeSelector: undefined;
+  Login: undefined;
   AlignedWelcome: undefined;
   AlignedOnboarding: undefined;
   AlignedApp: undefined;
